@@ -19,5 +19,5 @@ button {
 }
 
 button:hover {
-  background-color: #1e1e1e;
+  background-color: var(--color6);
 }
