@@ -1,6 +1,11 @@
+// import { fetchStarWarsData } from './api.js';
+
 // Función para el botón "People"
 function People() {
   alert("https://swapi.dev/api/people/");
+
+  fetchStarWarsData();
+
 }
 
 // Función para el botón "Planets"
@@ -28,15 +33,13 @@ function Starships() {
   alert("Has hecho clic en Starships");
 }
 
-//listeners 
+//listeners
 document.getElementById("btnPeople").addEventListener("click", People);
 document.getElementById("btnPlanets").addEventListener("click", Planets);
 document.getElementById("btnFilms").addEventListener("click", Films);
 document.getElementById("btnSpecies").addEventListener("click", Species);
 document.getElementById("btnVehicles").addEventListener("click", Vehicles);
 document.getElementById("btnStarships").addEventListener("click", Starships);
-
-
 
 document.getElementById("btnPeople").addEventListener("click", function () {
   document.getElementById("peopleModal").style.display = "block";
@@ -62,7 +65,6 @@ document.getElementById("btnStarships").addEventListener("click", function () {
   document.getElementById("starshipsModal").style.display = "block";
 });
 
-
 ////////////
 const closePeopleModal = document.getElementById("closePeopleModal");
 const closePlanetsModal = document.getElementById("closePlanetsModal");
@@ -70,7 +72,6 @@ const closeFilmsModal = document.getElementById("closeFilmsModal");
 const closeSpeciesModal = document.getElementById("closeSpeciesModal");
 const closeVehiclesModal = document.getElementById("closeVehiclesModal");
 const closeStarshipsModal = document.getElementById("closeStarshipsModal");
-
 
 closePeopleModal.onclick = () => {
   peopleModal.style.display = "none";
