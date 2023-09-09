@@ -68,6 +68,7 @@ button:hover {
   border-radius: 30px;
   position: absolute;
   border-style: dashed;
+  border-width: 5px;
   border-color: var(--color4);
 }
 
@@ -87,6 +88,10 @@ button:hover {
   position: relative;  
   top: 15px;
   left: 92%;  
+}
+
+.close:hover{
+  cursor: pointer;
 }
 
 .modal-closebutton{
