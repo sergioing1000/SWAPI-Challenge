@@ -3,5 +3,7 @@
   flex-direction: column;
   align-items: center;
 
-  background-color: var(--);
+  padding-top: 30px;
+
+  background: linear-gradient(var(--color7), var(--color2));
 }

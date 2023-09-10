@@ -1,3 +1,11 @@
+.nav_menu{
+  background: linear-gradient(var(--color2), var(--color7));
+  height: 80px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
 .button-container {
   display: flex;
   flex-direction: row;

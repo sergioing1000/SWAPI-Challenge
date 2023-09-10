@@ -16,8 +16,6 @@ function makeFetch (strData) {
         }
       });
 
-      
-
     } catch (error) {
       console.error("Error en index.js:", error);
     }
@@ -25,74 +23,7 @@ function makeFetch (strData) {
 
 }
 
-
-
-// Función para el botón "Films"
-function Films() {
-  let FilmsObject = [];
-
-  (async () => {
-    try {
-      const datosAPI = await fetchStarWarsData("films");
-
-      FilmsObject = datosAPI.results[0];
-      console.log(Object.keys(FilmsObject));
-    } catch (error) {
-      console.error("Error en index.js:", error);
-    }
-  })();
-}
-
-// Función para el botón "Species"
-function Species() {
-    let SpeciesObject = [];
-
-    (async () => {
-      try {
-        const datosAPI = await fetchStarWarsData("species");
-
-        SpeciesObject = datosAPI.results[0];
-        console.log(Object.keys(SpeciesObject));
-      } catch (error) {
-        console.error("Error en index.js:", error);
-      }
-    })();
-}
-
-// Función para el botón "Vehicles"
-function Vehicles() {
-  let VehiclesObject = [];
-
-  (async () => {
-    try {
-      const datosAPI = await fetchStarWarsData("vehicles");
-
-      VehiclesObject = datosAPI.results[0];
-      console.log(Object.keys(VehiclesObject));
-    } catch (error) {
-      console.error("Error en index.js:", error);
-    }
-  })();
-
-}
-
-// Función para el botón "Starships"
-function Starships() {
-  let StarshipsObject = [];
-
-  (async () => {
-    try {
-      const datosAPI = await fetchStarWarsData("vehicles");
-
-      StarshipsObject = datosAPI.results[0];
-      console.log(Object.keys(StarshipsObject));
-    } catch (error) {
-      console.error("Error en index.js:", error);
-    }
-  })();
-}
-
-//listeners
+// making fetch
 document.getElementById("btnPeople").addEventListener("click", function () {
   makeFetch("people");
 });
@@ -113,32 +44,34 @@ document.getElementById("btnStarships").addEventListener("click", function () {
 });
 
 
+// Showing modals
 
-document.getElementById("btnPeople").addEventListener("click", function () {
-  document.getElementById("peopleModal").style.display = "block";
-});
+// document.getElementById("btnPeople").addEventListener("click", function () {
+//   document.getElementById("peopleModal").style.display = "block";
+// });
 
-document.getElementById("btnPlanets").addEventListener("click", function () {
-  document.getElementById("planetsModal").style.display = "block";
-});
+// document.getElementById("btnPlanets").addEventListener("click", function () {
+//   document.getElementById("planetsModal").style.display = "block";
+// });
 
-document.getElementById("btnFilms").addEventListener("click", function () {
-  document.getElementById("filmsModal").style.display = "block";
-});
+// document.getElementById("btnFilms").addEventListener("click", function () {
+//   document.getElementById("filmsModal").style.display = "block";
+// });
 
-document.getElementById("btnSpecies").addEventListener("click", function () {
-  document.getElementById("speciesModal").style.display = "block";
-});
+// document.getElementById("btnSpecies").addEventListener("click", function () {
+//   document.getElementById("speciesModal").style.display = "block";
+// });
 
-document.getElementById("btnVehicles").addEventListener("click", function () {
-  document.getElementById("vehiclesModal").style.display = "block";
-});
+// document.getElementById("btnVehicles").addEventListener("click", function () {
+//   document.getElementById("vehiclesModal").style.display = "block";
+// });
 
-document.getElementById("btnStarships").addEventListener("click", function () {
-  document.getElementById("starshipsModal").style.display = "block";
-});
+// document.getElementById("btnStarships").addEventListener("click", function () {
+//   document.getElementById("starshipsModal").style.display = "block";
+// });
 
-////////////
+// Closing modals
+
 const closePeopleModal = document.getElementById("closePeopleModal");
 const closePlanetsModal = document.getElementById("closePlanetsModal");
 const closeFilmsModal = document.getElementById("closeFilmsModal");

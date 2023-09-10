@@ -7,4 +7,10 @@
   --color5: rgb(68, 68, 68);
   --color6: rgb(92, 80, 80);
   --color7: rgb(255, 255, 255);
+  --color8: rgba(196, 196, 196, 0.85);
+
+  --loadingcolor1: rgb(251, 186, 186);
+  --loadingcolor2: rgb(249, 122, 122);
+  --loadingcolor3: rgb(255, 106, 106);
+  --loadingcolor4: rgb(255, 22, 22);
 }
