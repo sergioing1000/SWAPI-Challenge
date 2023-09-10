@@ -1,45 +1,118 @@
-// import { fetchStarWarsData } from './api.js';
+function makeFetch (strData) {
 
-// Función para el botón "People"
-function People() {
-  alert("https://swapi.dev/api/people/");
+  let DataObject = [];
 
-  fetchStarWarsData();
+  (async () => {
+    try {
+      const datosAPI = await fetchStarWarsData(strData);
+      
+      DataObject = datosAPI.results[0];
+      console.log(Object.keys(DataObject));
+
+      const thElements = document.querySelectorAll("thead th");
+      thElements.forEach((th, index) => {
+        if (index < Object.keys(DataObject).length) {
+          th.innerHTML = Object.keys(DataObject)[index].charAt(0).toUpperCase() + Object.keys(DataObject)[index].slice(1);
+        }
+      });
+
+      
+
+    } catch (error) {
+      console.error("Error en index.js:", error);
+    }
+  })();
 
 }
 
-// Función para el botón "Planets"
-function Planets() {
-  alert("Has hecho clic en Planets");
-}
+
 
 // Función para el botón "Films"
 function Films() {
-  alert("Has hecho clic en Films");
+  let FilmsObject = [];
+
+  (async () => {
+    try {
+      const datosAPI = await fetchStarWarsData("films");
+
+      FilmsObject = datosAPI.results[0];
+      console.log(Object.keys(FilmsObject));
+    } catch (error) {
+      console.error("Error en index.js:", error);
+    }
+  })();
 }
 
 // Función para el botón "Species"
 function Species() {
-  alert("Has hecho clic en Species");
+    let SpeciesObject = [];
+
+    (async () => {
+      try {
+        const datosAPI = await fetchStarWarsData("species");
+
+        SpeciesObject = datosAPI.results[0];
+        console.log(Object.keys(SpeciesObject));
+      } catch (error) {
+        console.error("Error en index.js:", error);
+      }
+    })();
 }
 
 // Función para el botón "Vehicles"
 function Vehicles() {
-  alert("Has hecho clic en Vehicles");
+  let VehiclesObject = [];
+
+  (async () => {
+    try {
+      const datosAPI = await fetchStarWarsData("vehicles");
+
+      VehiclesObject = datosAPI.results[0];
+      console.log(Object.keys(VehiclesObject));
+    } catch (error) {
+      console.error("Error en index.js:", error);
+    }
+  })();
+
 }
 
 // Función para el botón "Starships"
 function Starships() {
-  alert("Has hecho clic en Starships");
+  let StarshipsObject = [];
+
+  (async () => {
+    try {
+      const datosAPI = await fetchStarWarsData("vehicles");
+
+      StarshipsObject = datosAPI.results[0];
+      console.log(Object.keys(StarshipsObject));
+    } catch (error) {
+      console.error("Error en index.js:", error);
+    }
+  })();
 }
 
 //listeners
-document.getElementById("btnPeople").addEventListener("click", People);
-document.getElementById("btnPlanets").addEventListener("click", Planets);
-document.getElementById("btnFilms").addEventListener("click", Films);
-document.getElementById("btnSpecies").addEventListener("click", Species);
-document.getElementById("btnVehicles").addEventListener("click", Vehicles);
-document.getElementById("btnStarships").addEventListener("click", Starships);
+document.getElementById("btnPeople").addEventListener("click", function () {
+  makeFetch("people");
+});
+document.getElementById("btnPlanets").addEventListener("click", function () {
+  makeFetch("planets");
+});
+document.getElementById("btnFilms").addEventListener("click", function () {
+  makeFetch("films");
+});
+document.getElementById("btnSpecies").addEventListener("click", function () {
+  makeFetch("species");
+});
+document.getElementById("btnVehicles").addEventListener("click", function () {
+  makeFetch("vehicles");
+});
+document.getElementById("btnStarships").addEventListener("click", function () {
+  makeFetch("starships");
+});
+
+
 
 document.getElementById("btnPeople").addEventListener("click", function () {
   document.getElementById("peopleModal").style.display = "block";
