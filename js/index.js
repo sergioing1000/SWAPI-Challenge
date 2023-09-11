@@ -1,26 +1,56 @@
-function makeFetch (strData) {
 
+function makeFetch(strData) {
   let DataObject = [];
-
+  loadingModal.style.display = "flex";
+  
   (async () => {
     try {
       const datosAPI = await fetchStarWarsData(strData);
-      
-      DataObject = datosAPI.results[0];
-      console.log(Object.keys(DataObject));
 
-      const thElements = document.querySelectorAll("thead th");
-      thElements.forEach((th, index) => {
-        if (index < Object.keys(DataObject).length) {
-          th.innerHTML = Object.keys(DataObject)[index].charAt(0).toUpperCase() + Object.keys(DataObject)[index].slice(1);
+      DataObject = datosAPI.results[0];
+      
+
+      for (let i = 0; i < Object.keys(DataObject).length; i++) {
+        const headerElement = document.getElementById(`header${i + 1}`);
+        if (headerElement) {
+          headerElement.innerHTML =
+            Object.keys(DataObject)[i].charAt(0).toUpperCase() +
+            Object.keys(DataObject)[i].slice(1);
         }
+      }
+
+      table_section.style.display = "flex";
+
+      let fila = 0;
+      let col = 0;
+        
+      datosAPI.results.forEach(function (resul) {
+        Object.keys(DataObject).slice(0, 10).forEach(function (element) { 
+          const cellElement = document.getElementById(`cell-${fila}-${col}`);
+
+          if (typeof (resul[element]) === 'object') {
+            // console.log("es un objeto");
+          }
+
+          if (resul[element].includes("https")) {
+            fetchSpecific(resul[element],fila,col);            
+          }
+          else {
+            cellElement.innerHTML = resul[element];
+          }
+          
+          col++;
+        });
+        col = 0;
+        fila++;
       });
+      
+      loadingModal.style.display = "none";
 
     } catch (error) {
       console.error("Error en index.js:", error);
     }
   })();
-
 }
 
 // making fetch
@@ -42,7 +72,6 @@ document.getElementById("btnVehicles").addEventListener("click", function () {
 document.getElementById("btnStarships").addEventListener("click", function () {
   makeFetch("starships");
 });
-
 
 // Showing modals
 
@@ -102,3 +131,5 @@ closeVehiclesModal.onclick = () => {
 closeStarshipsModal.onclick = () => {
   starshipsModal.style.display = "none";
 };
+
+const loadingModal = document.getElementById("loading-modal");

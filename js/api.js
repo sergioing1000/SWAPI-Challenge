@@ -34,10 +34,32 @@ async function fetchStarWarsData(option) {
     }
 
     const data = await response.json();
-    console.log("Datos obtenidos:", data);
+    // console.log("Datos obtenidos:", data);
 
     return data;
 
+  } catch (error) {
+    console.error("Error al obtener los datos:", error);
+  }
+}
+
+async function fetchSpecific(URL, fila, col) {
+
+  const cellElement = document.getElementById(`cell-${fila}-${col}`);
+
+  try {
+    const response = await fetch(URL);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Datos especificos:", data.name);
+
+    cellElement.innerHTML = data.name;
+
+    return data;
   } catch (error) {
     console.error("Error al obtener los datos:", error);
   }
