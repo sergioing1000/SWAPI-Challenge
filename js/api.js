@@ -34,7 +34,7 @@ async function fetchStarWarsData(option) {
     }
 
     const data = await response.json();
-    // console.log("Datos obtenidos:", data);
+    //console.log("Datos obtenidos:", data);
 
     return data;
 
@@ -55,7 +55,7 @@ async function fetchSpecific(URL, fila, col) {
     }
 
     const data = await response.json();
-    console.log("Datos especificos:", data.name);
+    //console.log("Datos específicos:", data);
 
     cellElement.innerHTML = data.name;
 

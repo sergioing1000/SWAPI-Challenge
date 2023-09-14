@@ -1,14 +1,14 @@
-
 function makeFetch(strData) {
   let DataObject = [];
+
+  cleantable();
   loadingModal.style.display = "flex";
-  
+
   (async () => {
     try {
       const datosAPI = await fetchStarWarsData(strData);
 
       DataObject = datosAPI.results[0];
-      
 
       for (let i = 0; i < Object.keys(DataObject).length; i++) {
         const headerElement = document.getElementById(`header${i + 1}`);
@@ -19,34 +19,52 @@ function makeFetch(strData) {
         }
       }
 
+      console.log(datosAPI);
+
       table_section.style.display = "flex";
 
-      let fila = 0;
+      let row = 0;
       let col = 0;
-        
+
       datosAPI.results.forEach(function (resul) {
-        Object.keys(DataObject).slice(0, 10).forEach(function (element) { 
-          const cellElement = document.getElementById(`cell-${fila}-${col}`);
+        Object.keys(DataObject)
+          .slice(0, 10)
+          .forEach(function (element) {
+            const cellElement = document.getElementById(`cell-${row}-${col}`);
 
-          if (typeof (resul[element]) === 'object') {
-            // console.log("es un objeto");
-          }
+            if (typeof resul[element] === "object") {
+              // console.log(
+              //   "es un objeto con estos elementos " + resul[element].length
+              // );
+              
+              // console.log(resul[element]);
 
-          if (resul[element].includes("https")) {
-            fetchSpecific(resul[element],fila,col);            
-          }
-          else {
-            cellElement.innerHTML = resul[element];
-          }
-          
-          col++;
-        });
+              const selectElement = document.createElement("select");
+              selectElement.id = `select-${row}-${col}`;
+
+              for (let i = 0; i < resul[element].length; i++) {
+                const optionElement = document.createElement("option");
+                optionElement.value = `cell-option-${i + 1}`;
+                optionElement.text = resul[element][i];
+                // console.log(resul[element][i]);
+                selectElement.appendChild(optionElement);
+              }
+              //console.log(selectElement);
+              cellElement.appendChild(selectElement);
+            }
+            else if (resul[element].includes("https")) {
+              fetchSpecific(resul[element], row, col);
+            } else {
+              cellElement.innerHTML = resul[element];
+            }
+
+            col++;
+          });
         col = 0;
-        fila++;
+        row++;
       });
-      
-      loadingModal.style.display = "none";
 
+      loadingModal.style.display = "none";
     } catch (error) {
       console.error("Error en index.js:", error);
     }
