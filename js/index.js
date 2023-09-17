@@ -10,8 +10,12 @@ function makeFetch(strData) {
 
       DataObject = datosAPI.results[0];
 
+      console.log(datosAPI.previous);
+      console.log(datosAPI.next);
+
       for (let i = 0; i < Object.keys(DataObject).length; i++) {
         const headerElement = document.getElementById(`header${i + 1}`);
+
         if (headerElement) {
           headerElement.innerHTML =
             Object.keys(DataObject)[i].charAt(0).toUpperCase() +
@@ -19,7 +23,11 @@ function makeFetch(strData) {
         }
       }
 
-      console.log(datosAPI);
+      // console.log(`los datos de respuesta del fecth son: `);
+      // console.log(datosAPI);
+
+      // console.log(`los datos del arreglo son:`);
+      // console.log(datosAPI.results)
 
       table_section.style.display = "flex";
 
@@ -27,32 +35,43 @@ function makeFetch(strData) {
       let col = 0;
 
       datosAPI.results.forEach(function (resul) {
+        // console.log(`el valor de resul es: `);
+        // console.log(resul);
+
         Object.keys(DataObject)
           .slice(0, 10)
           .forEach(function (element) {
             const cellElement = document.getElementById(`cell-${row}-${col}`);
 
+            // console.log("se hace la prueba")
+            // console.log(typeof resul[element]);
+            // console.log(resul[element]);
+
             if (typeof resul[element] === "object") {
-              // console.log(
-              //   "es un objeto con estos elementos " + resul[element].length
-              // );
-              
-              // console.log(resul[element]);
 
-              const selectElement = document.createElement("select");
-              selectElement.id = `select-${row}-${col}`;
+              if (resul[element] != null) {
+                
+                const selectElement = document.createElement("select");
 
-              for (let i = 0; i < resul[element].length; i++) {
-                const optionElement = document.createElement("option");
-                optionElement.value = `cell-option-${i + 1}`;
-                optionElement.text = resul[element][i];
-                // console.log(resul[element][i]);
-                selectElement.appendChild(optionElement);
+                selectElement.id = `select-${row}-${col}`;
+
+                for (let i = 0; i < resul[element].length; i++) {
+                  const optionElement = document.createElement("option");
+                  optionElement.value = `cell-option-${i + 1}`;
+                  optionElement.text = resul[element][i];
+                  // console.log(resul[element][i]);
+                  selectElement.appendChild(optionElement);
+                }
+                // console.log(selectElement);
+                cellElement.appendChild(selectElement);                
               }
-              //console.log(selectElement);
-              cellElement.appendChild(selectElement);
-            }
-            else if (resul[element].includes("https")) {
+              else {
+                cellElement.innerHTML = "--";
+              }
+            } else if (typeof resul[element] === "number") {
+              cellElement.innerHTML = resul[element];
+            } else if (resul[element].includes("https")) {
+              // console.log(resul[element]);
               fetchSpecific(resul[element], row, col);
             } else {
               cellElement.innerHTML = resul[element];
@@ -89,6 +108,12 @@ document.getElementById("btnVehicles").addEventListener("click", function () {
 });
 document.getElementById("btnStarships").addEventListener("click", function () {
   makeFetch("starships");
+});
+document.getElementById("TblBtnPrev").addEventListener("click", function () {
+  alert("PREV");
+});
+document.getElementById("TblBtnNext").addEventListener("click", function () {
+  alert("NEXT");
 });
 
 // Showing modals
