@@ -1,4 +1,3 @@
-
 async function fetchStarWarsData(option) {
 
   let apiUrl = "";
@@ -23,6 +22,7 @@ async function fetchStarWarsData(option) {
       apiUrl = "https://swapi.dev/api/starships/";
       break;
     default:
+      apiUrl = option;
       break;
   }
 

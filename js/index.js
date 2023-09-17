@@ -1,3 +1,6 @@
+let PREV = null;
+let NEXT = null;
+
 function makeFetch(strData) {
   let DataObject = [];
 
@@ -10,8 +13,9 @@ function makeFetch(strData) {
 
       DataObject = datosAPI.results[0];
 
-      console.log(datosAPI.previous);
-      console.log(datosAPI.next);
+      
+      PREV = datosAPI.previous;
+      NEXT = datosAPI.next;
 
       for (let i = 0; i < Object.keys(DataObject).length; i++) {
         const headerElement = document.getElementById(`header${i + 1}`);
@@ -110,10 +114,20 @@ document.getElementById("btnStarships").addEventListener("click", function () {
   makeFetch("starships");
 });
 document.getElementById("TblBtnPrev").addEventListener("click", function () {
-  alert("PREV");
+  if (PREV != null) {
+    makeFetch(PREV);
+  } else {
+    alert("no hay pagina previa");
+    console.log(PREV);
+  }
 });
 document.getElementById("TblBtnNext").addEventListener("click", function () {
-  alert("NEXT");
+  if (NEXT != null) {
+    makeFetch(NEXT);
+  } else {
+    alert("no hay pagina siguiente");
+    console.log(NEXT);
+  }
 });
 
 // Showing modals
