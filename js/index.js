@@ -1,5 +1,6 @@
 let PREV = null;
 let NEXT = null;
+let clickHandlerAL = null;
 
 function makeFetch(strData) {
   let DataObject = [];
@@ -13,7 +14,6 @@ function makeFetch(strData) {
 
       DataObject = datosAPI.results[0];
 
-      
       PREV = datosAPI.previous;
       NEXT = datosAPI.next;
 
@@ -27,34 +27,19 @@ function makeFetch(strData) {
         }
       }
 
-      // console.log(`los datos de respuesta del fecth son: `);
-      // console.log(datosAPI);
-
-      // console.log(`los datos del arreglo son:`);
-      // console.log(datosAPI.results)
-
       table_section.style.display = "flex";
 
       let row = 0;
       let col = 0;
 
       datosAPI.results.forEach(function (resul) {
-        // console.log(`el valor de resul es: `);
-        // console.log(resul);
-
         Object.keys(DataObject)
           .slice(0, 10)
           .forEach(function (element) {
             const cellElement = document.getElementById(`cell-${row}-${col}`);
 
-            // console.log("se hace la prueba")
-            // console.log(typeof resul[element]);
-            // console.log(resul[element]);
-
             if (typeof resul[element] === "object") {
-
               if (resul[element] != null) {
-                
                 const selectElement = document.createElement("select");
 
                 selectElement.id = `select-${row}-${col}`;
@@ -67,9 +52,8 @@ function makeFetch(strData) {
                   selectElement.appendChild(optionElement);
                 }
                 // console.log(selectElement);
-                cellElement.appendChild(selectElement);                
-              }
-              else {
+                cellElement.appendChild(selectElement);
+              } else {
                 cellElement.innerHTML = "--";
               }
             } else if (typeof resul[element] === "number") {
@@ -81,6 +65,10 @@ function makeFetch(strData) {
               cellElement.innerHTML = resul[element];
             }
 
+            if (col === 0) {
+              // addingListeners2(cellElement);
+            }
+
             col++;
           });
         col = 0;
@@ -88,10 +76,65 @@ function makeFetch(strData) {
       });
 
       loadingModal.style.display = "none";
+
+      cellElement = null;
     } catch (error) {
       console.error("Error en index.js:", error);
     }
   })();
+}
+// =======================
+
+function addingListeners1(cellElement) {
+  let cell_text = "";
+
+  function handleClick() {
+    cell_text = cellElement.textContent;
+    console.log(`El contenido de la celda es: ${cell_text}`);
+  }
+
+  console.log("la función");
+  console.log(clickHandlerAL);
+
+  if (clickHandlerAL) {
+    cellElement.removeEventListener("click", clickHandlerAL, false);
+    console.log("fucnion de remover");
+  }
+
+  clickHandlerAL = handleClick;
+  cellElement.addEventListener("click", clickHandlerAL, { passive: true });
+}
+///////////////
+function addingListeners2(cellElement) {
+
+
+
+  var body = document.querySelector("body"),
+    clickTarget = document.getElementById("click-target"),
+    mouseOverTarget = document.getElementById("mouse-over-target"),
+    toggle = false;
+
+  function makeBackgroundYellow() {
+    "use strict";
+
+    if (toggle) {
+      body.style.backgroundColor = "white";
+    } else {
+      body.style.backgroundColor = "yellow";
+    }
+
+    toggle = !toggle;
+  }
+
+  clickTarget.addEventListener("click", makeBackgroundYellow, false);
+
+  mouseOverTarget.addEventListener("mouseup", function () {
+    "use strict";
+
+    clickTarget.removeEventListener("click", makeBackgroundYellow, false);
+  });
+
+
 }
 
 // making fetch
@@ -118,7 +161,6 @@ document.getElementById("TblBtnPrev").addEventListener("click", function () {
     makeFetch(PREV);
   } else {
     alert("no hay pagina previa");
-    console.log(PREV);
   }
 });
 document.getElementById("TblBtnNext").addEventListener("click", function () {
@@ -126,7 +168,6 @@ document.getElementById("TblBtnNext").addEventListener("click", function () {
     makeFetch(NEXT);
   } else {
     alert("no hay pagina siguiente");
-    console.log(NEXT);
   }
 });
 
